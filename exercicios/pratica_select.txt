@@ -1,0 +1,19 @@
+****************** BANCO DE DADOS USADO => ADVENTUREWORKS2017 ******************
+1 - A equipe de marketing precisa fazer uma pesquisa sobre os nomes mais comuns de seus clientes e, para isso, precisa do nome e do sobrenome de todos os clientes que estão cadastrados no sistema. Exibir apenas:
+    a) First name
+    b) Last name
+
+2 - Quantos sobrenomes únicos existem na tabela Person.Person?
+    RESPOSTA => 1206 sobrenomes
+
+3 - A equipe de produção de produtos precisa, para inspeção, do nome de todas as peças que pesam mais que 500 g, mas não mais que 700 g (observação: a unidade de medida da tabela está em gramas (g) ou libras (lb) e, por isso, alterei o enunciado original (que estava em quilos (kg)) e fiz a busca usando ambas as unidades de medida).
+
+4 - Foi pedido pelo marketing uma relação de todos os empregados que são casados e são assalariados (SalariedFlag == 1).
+
+5 - Um usuário chamado Peter Krebs está devendo um pagamento. Consiga o e-mail dele para que uma cobrança seja enviada. (para realizar a atividade será necessário usar as tabelas Person.Person e Person.Emailaddress)
+
+6 - Quantos produtos estão cadastrados na tabela de produtos (Production.Product)?
+
+7 - Quantos tamanhos de produtos estão cadastrados na tabela Production.Product?
+
+8 - Quantos tamanhos diferentes de produtos estão cadastrados na tabela Production.Product?
