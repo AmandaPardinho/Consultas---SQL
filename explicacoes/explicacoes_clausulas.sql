@@ -1,3 +1,5 @@
+USE AdventureWorks2017;
+
 --Explicação do uso da cláusula SELECT
 SELECT * FROM Person.Person;
 
@@ -72,4 +74,61 @@ FROM HumanResources.Employee
 WHERE HireDate BETWEEN '2009-01-01' AND '2010-01-01'
 ORDER BY HireDate ASC;
 
---Explicação IN
+--Explicação IN => é usado junto com o WHERE para verificar se um valor corresponde a qualquer valor passado na lista de valores
+valor IN (valor1, valor2);
+
+valor IN (SELECT valor FROM tabela) --subquery
+
+SELECT * FROM Person.Person WHERE BusinessEntityId IN (2, 7, 13);
+
+--Explicação LIKE => usado quando se tem a informação incerta; não é case sensitive
+SELECT * FROM Person.Person WHERE FirstName LIKE 'ovi%';
+
+SELECT * FROM Person.Person WHERE FirstName LIKE '%to';
+
+SELECT * FROM Person.Person WHERE FirstName LIKE '%essa%';
+
+SELECT * FROM Person.Person WHERE FirstName LIKE '%ro_'; --se limita a apenas um caracter após a sequência "ro"
+
+--Cláusulas MIN, MAX, SUM, AVG => são funções de agregação, ou seja, agregam ou combinam dados de uma tabela em um único resultado
+SELECT TOP 10 * FROM Sales.SalesOrderDetail;
+
+SELECT TOP 10 SUM(LineTotal) AS 'Soma' 
+FROM Sales.SalesOrderDetail;
+
+SELECT TOP 10 MIN(LineTotal) AS 'ValorMínimo'
+FROM Sales.SalesOrderDetail;
+
+SELECT TOP 10 MAX(LineTotal) AS 'ValorMáximo'
+FROM Sales.SalesOrderDetail;
+
+SELECT TOP 10 AVG(LineTotal) AS 'Média'
+FROM Sales.SalesOrderDetail;
+
+--Cláusula GROUP BY => divide o resultado da pesquisa em grupos
+SELECT coluna1, funcaoDeAgregacao(coluna2) FROM tabela GROUP BY coluna1;
+
+SELECT * FROM Sales.SalesOrderDetail
+
+SELECT SpecialOfferID, SUM(UnitPrice) AS 'SomaUnitPrice'
+FROM Sales.SalesOrderDetail
+GROUP BY SpecialOfferID;
+
+SELECT ProductID, COUNT(ProductID) AS 'ContagemProduto'
+FROM Sales.SalesOrderDetail
+GROUP BY ProductID;
+
+SELECT * FROM Person.Person;
+
+SELECT FirstName, COUNT(FirstName) AS 'Nome'
+FROM Person.Person
+GROUP BY FirstName;
+
+SELECT * FROM Production.Product;
+
+SELECT Color, AVG(ListPrice) AS 'MédiaPreço'
+FROM Production.Product
+WHERE Color = 'silver'
+GROUP BY Color;
+
+--
