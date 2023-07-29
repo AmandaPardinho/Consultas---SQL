@@ -13,7 +13,52 @@
 5 - Um usuário chamado Peter Krebs está devendo um pagamento. Consiga o e-mail dele para que uma cobrança seja enviada. (para realizar a atividade será necessário usar as tabelas Person.Person e Person.Emailaddress)
 
 6 - Quantos produtos estão cadastrados na tabela de produtos (Production.Product)?
+    RESPOSTA => 504
 
 7 - Quantos tamanhos de produtos estão cadastrados na tabela Production.Product?
+    RESPOSTA => 211
 
 8 - Quantos tamanhos diferentes de produtos estão cadastrados na tabela Production.Product?
+    RESPOSTA => 18
+
+9 - Obter o ProductId dos 10 produtos mais caros cadastrados no sistema, listando do mais caro para o mais barato.
+
+10 - Obter o nome e o número dos produtos que tem o ProductId entre 1 e 4.
+
+11 - Quantos produtos têm cadastrado no sistema e custam mais que $ 1500,00?
+    RESPOSTA => 39
+
+12 - Quantas pessoas existem na tabela possuem o sobrenome iniciado pela letra 'P'?
+    RESPOSTA => 1187
+
+13 - Em quantas cidades únicas estão cadastrados os clientes?
+    RESPOSTA => 575
+
+14 - Quais são as cidades únicas que estão cadastradas no sistema?
+
+15 - Quantos produtos vermelhos têm preço entre 500 e 1000 dólares?
+    RESPOSTA => 11
+
+16 - Quantos produtos cadastrados têm a palavra "road" no nome?
+    RESPOSTA => 103
+
+17 - Quantas pessoas tem o mesmo MiddleName?
+
+18 - Descobrir qual a quantidade média de vendas de cada produto da loja.
+
+19 - Quais foram as 10 vendas de maior valor total de venda por produto (do maior para o menor)?
+
+20 - Quantos produtos e qual a quantidade média deles está nas ordens de serviço, agrupados por ProductId?
+
+21 - Identificar as províncias (stateProvinceId) com o maior número de cadastros no sistema e que estão registradas no banco de dados mais que 1000 vezes.
+
+22 - Os gerentes da empresa querem saber quais dos produtos (ProductId) não estão gerando, em média, 1 milhão de dólares no total de vendas (LineTotal).
+
+23 - Renomear as seguintes colunas:
+    a) FirstName e LastName da tabela Person.Person
+    b) ProductNumber da tabela Production.Product como "Código do Produto"
+    c) UnitPrice da tabela Sales.SalesOrderDetail como "Preço Unitário"
+
+24 - Retorne, a partir das tabelas Person.PhoneNumberType e Person.Phone, BusinessEntityID, Name, PhoneNumberTypeID, PhoneNumber em uma única tabela.
+
+25 - Retorne, a partir das tabelas Person.Address e Person.StateProvince, AddressID, City, stateProvinceId, Nome da província em uma única tabela.
