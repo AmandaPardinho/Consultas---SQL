@@ -131,4 +131,56 @@ FROM Production.Product
 WHERE Color = 'silver'
 GROUP BY Color;
 
+--Cláusula HAVING => usado junto com o GROUP BY para filtrar resultados de um agrupamento (é um "WHERE" para dados agrupados)
+/*Diferença entre 'HAVING' e 'WHERE' => o 'HAVING' é usado depois que os dados foram agrupados enquanto o 'WHERE' é aplicado antes de agrupá-los */
+SELECT coluna1, funcaoAgregacao (coluna2)
+FROM tabela
+GROUP BY coluna1 HAVING condicao;
+
+SELECT FirstName, COUNT(FirstName) AS 'Quantidade'
+FROM Person.Person
+GROUP BY FirstName HAVING COUNT(FirstName) > 10;
+
+SELECT ProductID, SUM(LineTotal) AS 'SomaTotal'
+FROM Sales.SalesOrderDetail
+GROUP BY ProductID 
+HAVING SUM(LineTotal) BETWEEN 162000 AND 500000;
+
+SELECT FirstName, COUNT(FirstName) AS 'Quantidade'
+FROM Person.Person
+WHERE Title = 'Mr.'
+GROUP BY FirstName HAVING COUNT(FirstName) > 10;
+
+--Cláusula AS => renomear (apelidar) colunas com um termo específico
+SELECT TOP 10 * FROM Production.Product;
+
+SELECT TOP 10 AVG(ListPrice) AS 'PreçoMédio'
+FROM Production.Product;
+
+--Cláusula INNER JOIN => junta informações de duas tabelas
+SELECT tabela1.colunaPK1, tabela1.coluna2, tabela2.coluna1, tabela2.coluna2
+FROM tabela1
+INNER JOIN tabela2 ON tabela2.colunaPK2 = tabela1(tabela2.colunaPK2);
+
+SELECT * FROM Person.Person;
+SELECT * FROM Person.EmailAddress;
+SELECT Pessoa.BusinessEntityID, FirstName, LastName, EmailPessoa.EmailAddress
+FROM Person.Person AS Pessoa
+	INNER JOIN Person.EmailAddress AS EmailPessoa
+		ON Pessoa.BusinessEntityID = EmailPessoa.BusinessEntityID;
+
+SELECT * FROM Production.Product;
+SELECT * FROM Production.ProductSubcategory;
+SELECT Produto.Name AS 'Nome do Produto', Produto.ListPrice, 
+	Subcategoria.Name AS 'Nome da Subcategoria'
+FROM Production.Product AS Produto
+	INNER JOIN  Production.ProductSubcategory AS Subcategoria
+		ON Produto.ProductSubcategoryID = Subcategoria.ProductSubcategoryID;
+
+SELECT * FROM Person.BusinessEntityAddress;
+SELECT * FROM Person.Address;
+SELECT * FROM Person.BusinessEntityAddress AS BAddress
+	INNER JOIN Person.Address AS PAddress 
+		ON PAddress.AddressID = BAddress.AddressID;
+
 --
