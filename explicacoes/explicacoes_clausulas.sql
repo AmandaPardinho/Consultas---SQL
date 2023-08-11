@@ -183,4 +183,33 @@ SELECT * FROM Person.BusinessEntityAddress AS BAddress
 	INNER JOIN Person.Address AS PAddress 
 		ON PAddress.AddressID = BAddress.AddressID;
 
---
+--Outros tipos de JOIN
+/*	INNER JOIN => retorna apenas o que existem tanto na tabela1 quanto na tabela2 (interseção)
+	(FULL) OUTER JOIN => retorna o conjunto de todos os registros da tabela1 e tabela2 quando forem iguais e, caso não haja correspondente equivalente, retorna null
+	LEFT (OUTER) JOIN => retorna todos os registros da tabela1 e os registros correspondentes da tabela2; caso não haja registros correspondentes, retorna null
+	RIGHT JOIN 
+*/
+SELECT * FROM Person.Person AS PP
+	INNER JOIN Sales.PersonCreditCard AS PC
+		ON PP.BusinessEntityID = PC.BusinessEntityID; -- 19118 LINHAS
+
+SELECT * FROM Person.Person AS PP
+	LEFT JOIN Sales.PersonCreditCard AS PC
+		ON PP.BusinessEntityID = PC.BusinessEntityID -- 19972 LINHAS
+WHERE PC.BusinessEntityID IS NULL; --COM A CLÁUSULA WHERE => 854 LINHAS
+
+--Cláusula UNION => combina dois ou mais resultados de um SELECT em um único resultado, removendo os resultados duplicados
+	--UNION ALL => mantém os resultados duplicados
+SELECT coluna1, coluna2 FROM tabela1
+UNION
+SELECT coluna1, coluna2 FROM tabela2;
+
+SELECT [ProductID], [Name], [ProductNumber] FROM Production.Product WHERE Name LIKE '%Chain%'
+UNION
+SELECT [ProductID], [Name], [ProductNumber] FROM Production.Product WHERE Name LIKE '%Decal%';
+
+SELECT FirstName, Title FROM Person.Person WHERE Title = 'Mr.'
+UNION
+SELECT FirstName, Title FROM Person.Person WHERE MiddleName = 'A';
+
+--Cláusula SELF JOIN => junta dados de uma mesma tabela
