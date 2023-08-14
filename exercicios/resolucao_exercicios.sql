@@ -187,3 +187,121 @@ SELECT Endereco.AddressID, Endereco.City, Provincia.StateProvinceID,
 FROM Person.Address AS Endereco
 	INNER JOIN Person.StateProvince AS Provincia
 		ON Endereco.StateProvinceID = Provincia.StateProvinceID;
+
+--Exercício 26 (Northwind)
+SELECT * FROM Employees;
+
+SELECT A.FirstName, A.LastName, A.HireDate, B.FirstName, B.LastName, B.HireDate
+FROM Employees A, Employees B
+WHERE DATEPART(YEAR, A.HireDate) = DATEPART(YEAR, B.HireDate);
+
+--Exercício 27 (Northwind)
+SELECT * FROM [Order Details Extended];
+
+SELECT A.ProductName, A.Discount, B.ProductName, B.Discount
+FROM [Order Details Extended] A, [Order Details Extended] B
+WHERE A.Discount = B.Discount;
+
+--Exercício 28
+SELECT * FROM Production.Product;
+
+SELECT Product.Name, Product.ListPrice
+FROM Production.Product
+WHERE ListPrice > (SELECT AVG(Product.ListPrice) FROM Production.Product);
+
+--Exercício 29
+SELECT * FROM Person.Person;
+
+SELECT * FROM HumanResources.Employee;
+	
+------SOLUÇÃO 1------
+SELECT P.BusinessEntityID, P.FirstName, P.MiddleName, P.LastName, HE.JobTitle
+FROM Person.Person AS P
+	INNER JOIN HumanResources.Employee AS HE ON P.BusinessEntityID = HE.BusinessEntityID
+WHERE HE.JobTitle = 'Design Engineer';
+
+------SOLUÇÃO 2------
+SELECT P.BusinessEntityId, P.FirstName, P.MiddleName, P.LastName
+FROM Person.Person AS P
+WHERE BusinessEntityID IN (
+	SELECT HE.BusinessEntityID 
+	FROM HumanResources.Employee AS HE
+	WHERE JobTitle = 'Design Engineer'
+);
+
+--Exercício 30
+SELECT * FROM Person.Address;
+
+SELECT * FROM Person.StateProvince;
+
+SELECT A.StateProvinceId, A.AddressLine1
+FROM Person.Address AS A
+WHERE StateProvinceId IN (
+	SELECT S.StateProvinceId
+	FROM Person.StateProvince AS S
+	WHERE S.Name = 'Alberta'
+);
+
+--Exercício 31
+SELECT * FROM HumanResources.Employee;
+
+SELECT HE.BusinessEntityID, 
+	DATEPART(MONTH, HE.BirthDate) AS 'Mês', 
+	DATEPART(YEAR, HE.BirthDate) AS 'Ano'
+FROM HumanResources.Employee AS HE
+ORDER BY Ano;
+
+--Exercício 32
+SELECT * FROM Production.Product;
+SELECT * FROM Person.Person;
+
+SELECT UPPER(Name) AS 'NAME' FROM Production.Product;
+
+SELECT CONCAT(FirstName, ' ', MiddleName, ' ', LastName) AS 'NomeCompleto'
+FROM Person.Person
+WHERE MiddleName IS NOT NULL;
+
+SELECT REPLACE(rowguid, '-', '.')
+FROM Person.Person;
+
+SELECT SUBSTRING(ProductNumber, 1, 2) AS 'LetrasCódigo'
+FROM Production.Product
+ORDER BY ProductNumber ASC;
+
+SELECT LOWER(Color) AS 'Cor'
+FROM Production.Product
+WHERE Color IS NOT NULL;
+
+SELECT ProductNumber, LEN(ProductNumber)
+FROM Production.Product;
+
+--Exercício 33
+SELECT * FROM Production.ProductCostHistory;
+
+SELECT ROUND(StandardCost, 2) FROM Production.ProductCostHistory;
+
+--Exercício 34
+CREATE TABLE Pacientes(
+	PacienteId INT PRIMARY KEY,
+	DataAtendimento DATETIME2 NOT NULL,
+	Nome VARCHAR(50) NOT NULL,
+	Idade INT NOT NULL,
+	Genero VARCHAR(25) NOT NULL,
+	Endereco VARCHAR(100) NOT NULL,
+	DiagnosticoAlopatia VARCHAR(300),
+	MedicamentosAlopatia VARCHAR(300),
+	Sintomas VARCHAR(500)
+);
+
+CREATE TABLE Tratamentos(
+	TratamentoId INT PRIMARY KEY,
+	MedicamentoMTC VARCHAR(100),
+	Pontos VARCHAR(100) NOT NULL,
+	PacienteId INT FOREIGN KEY REFERENCES Pacientes(PacienteId)
+);
+
+SELECT * FROM Pacientes;
+
+SELECT * FROM Tratamentos;
+
+--Exercício 35
