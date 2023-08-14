@@ -62,3 +62,31 @@
 24 - Retorne, a partir das tabelas Person.PhoneNumberType e Person.Phone, BusinessEntityID, Name, PhoneNumberTypeID, PhoneNumber em uma única tabela.
 
 25 - Retorne, a partir das tabelas Person.Address e Person.StateProvince, AddressID, City, stateProvinceId, Nome da província em uma única tabela.
+
+26 - Encontrar nome e data de contratação de todos os funcionários que foram contratados no mesmo ano
+
+27 - Quais produtos da tabela "detalhe do pedido" têm o mesmo percentual de desconto?
+
+28 - Montar um relatório de todos os produtos cadastrados que têm preço de venda acima da média (base de dados => ADVENTUREWORKS2017).
+
+29 - Exibir o nome dos funcionários que têm o cargo de "Design Engineer".
+
+30 - Encontrar todos os endereços que estão localizados no estado de Alberta.
+
+31 - Encontrar uma tabela no banco ADVENTUREWORKS2017 que tenha informações de datas e extrair 'MÊS' e 'ANO' da coluna de data.
+
+32 - Usar os comandos 'CONCAT', 'LEN', 'LOWER', 'UPPER', 'SUBSTRING' e 'REPLACE', em uma tabela a sua escolha, para exemplificar cada um deles.
+
+33 - Usar a função 'ROUND' nos números de alguma tabela que não seja a Sales.SalesOrderDetail.
+
+34 - Encontrar duas coisas que tenho em casa e que podem se tornar tabelas. Em seguida, crie duas tabelas que tenham, no mínimo, um relacionamento entre si.
+
+35 - Siga os seguintes passos:
+    a) Crie uma nova tabela;
+    b) Insira uma linha de dados nela;
+    c) Insira três novas linhas de dados ao mesmo tempo;
+    d) Crie uma segunda tabela;
+    e) Insira uma linha de dados na nova tabela;
+    f) Copie os dados da tabela 1 na tabela 2.
+
+36 - 
