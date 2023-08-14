@@ -171,8 +171,8 @@ FROM Person.Person AS Pessoa
 
 SELECT * FROM Production.Product;
 SELECT * FROM Production.ProductSubcategory;
-SELECT Produto.Name AS 'Nome do Produto', Produto.ListPrice, 
-	Subcategoria.Name AS 'Nome da Subcategoria'
+SELECT Produto.Name AS 'Nome do Produto',  
+	Subcategoria.Name AS 'Nome da Subcategoria', Produto.ListPrice
 FROM Production.Product AS Produto
 	INNER JOIN  Production.ProductSubcategory AS Subcategoria
 		ON Produto.ProductSubcategoryID = Subcategoria.ProductSubcategoryID;
@@ -187,7 +187,7 @@ SELECT * FROM Person.BusinessEntityAddress AS BAddress
 /*	INNER JOIN => retorna apenas o que existem tanto na tabela1 quanto na tabela2 (interseção)
 	(FULL) OUTER JOIN => retorna o conjunto de todos os registros da tabela1 e tabela2 quando forem iguais e, caso não haja correspondente equivalente, retorna null
 	LEFT (OUTER) JOIN => retorna todos os registros da tabela1 e os registros correspondentes da tabela2; caso não haja registros correspondentes, retorna null
-	RIGHT JOIN 
+	RIGHT JOIN => retorna todos os registros da tabela2 e os registros correspondentes da tabela1; caso não haja registros correspondentes, retorna null
 */
 SELECT * FROM Person.Person AS PP
 	INNER JOIN Sales.PersonCreditCard AS PC
@@ -213,3 +213,170 @@ UNION
 SELECT FirstName, Title FROM Person.Person WHERE MiddleName = 'A';
 
 --Cláusula SELF JOIN => junta dados de uma mesma tabela
+SELECT coluna1 FROM tabelaA as A, tabelaB as B where condicao;
+
+SELECT * FROM Customers;
+
+SELECT A.ContactName, A.Region, B.ContactName, B.Region
+FROM Customers A, Customers B
+WHERE A.Region = B.Region;
+
+--Subquery (SUBSELECT) => é um SELECT dentro de outro SELECT
+SELECT colunas 
+FROM tabela
+WHERE colunaX (condição) (SELECT condiçãoASerTestada FROM tabela);
+
+--Cláusula DATEPART => extrai informações de um dado em formato de data
+SELECT * FROM Sales.SalesOrderHeader;
+
+SELECT SalesOrderID, DATEPART(MONTH, OrderDate) AS 'Mês'
+FROM Sales.SalesOrderHeader;
+
+SELECT AVG(TotalDue) AS 'Média', DATEPART(MONTH, OrderDate) as 'Mês'
+FROM Sales.SalesOrderHeader
+GROUP BY DATEPART(MONTH, OrderDate)
+ORDER BY Mês;
+
+--Operações em Strings
+SELECT * FROM Person.Person;
+
+SELECT CONCAT(FirstName, ' ', LastName)
+FROM Person.Person;
+
+SELECT UPPER(FirstName), LOWER(FirstName)
+FROM Person.Person;
+
+SELECT FirstName, LEN(FirstName)
+FROM Person.Person;
+
+SELECT FirstName, SUBSTRING(FirstName, 1, 3)
+FROM Person.Person;
+
+SELECT ProductNumber, REPLACE(ProductNumber, '-', '#')
+FROM Production.Product;
+
+--Operações Matemáticas
+SELECT * FROM Sales.SalesOrderDetail;
+
+SELECT (UnitPrice + LineTotal) FROM Sales.SalesOrderDetail;
+
+SELECT (LineTotal - UnitPrice) FROM Sales.SalesOrderDetail;
+
+SELECT (UnitPrice * LineTotal) FROM Sales.SalesOrderDetail;
+
+SELECT (UnitPrice / LineTotal) FROM Sales.SalesOrderDetail;
+
+SELECT AVG(LineTotal) FROM Sales.SalesOrderDetail;
+
+SELECT SUM(LineTotal) FROM Sales.SalesOrderDetail;
+
+SELECT MIN(LineTotal) FROM Sales.SalesOrderDetail;
+
+SELECT MAX(LineTotal) FROM Sales.SalesOrderDetail;
+
+SELECT ROUND(LineTotal, 2) FROM Sales.SalesOrderDetail; --o segundo valor contido no round é a precisão do arredondamento
+
+SELECT SQRT(LineTotal) FROM Sales.SalesOrderDetail;
+
+--Tipos de Dados
+/*
+ * 1 - Booleanos
+	-inicializado como nulo
+	-pode receber 1 ou 0
+	-no SQL Server, para representar um tipo booleano, usa-se o BIT
+
+ * 2 - Caractere
+	-usa-se o char (tamanho fixo) => permite inserir uma quantidade fixa de caracteres e sempre ocupa todo espaço reservado (se reservei 50 espaços, ocupará 50 espaços na memória mesmo que só sejam usados 10 espaços)
+	-varchar ou nvarchar (tamanho variável) => permite inserir até uma quantidade que foi definida; porém só usa o espaço que for preenchido
+
+ * 3 - Numérico
+	-valores exatos=>
+		-não permitem valores fracionados =>
+			-TINYINT => menor limite de valor
+			-SMALLINT => limite maior que o TINYINT
+			-INT => limite maior que o SMALLINT
+			-BIGINT => limite maior que o INT
+		-permitem valores fracionados =>
+			-NUMERIC ou DECIMAL => 
+				-valores exatos que permitem o armazenamento da parte fracionada
+				-aceitam a especificação da precisão (quantidade de dígitos que podem ser armazenados) e da escala(número de dígitos na parte fracionada)
+	-valores aproximados =>
+		-REAL => precisão de até 15 dígitos
+		-FLOAT => mesmo conceito de REAL
+
+ * 4 - Temporais
+	-DATE => armazena data no formato aaaa/mm/dd
+	-DATETIME => armazena data e hora no formato aaaa/mm/dd:hh:mm:ss
+	-DATETIME2 => armazena data e hora com adição de milissegundos no formato aaaa/mm/dd:hh:mm:sssssss
+	-SMALLDATETIME => data e hora respeitando o limite entre '1900-01-01:00:00:00' até '2079-06-06:23:59:59'
+	-TIME =>horas, minutos, segundos e milissegundos respeitando o limite de '00:00:00.0000000' até '23:59:59.9999999'
+	-DATETIMEOFFSET => permite armazenar informações de data e hora, incluindo o fuso horário
+*/
+
+--Chave Primária e Chave Estrangeira
+/*
+* CHAVE PRIMÁRIA =>
+	-coluna (ou grupo de colunas) usada para identificar unicamente uma linha em uma tabela
+	-é possível criá-las através de restrições (constraints) =>
+		-restrições são regras definidas ao criar uma coluna
+		-ao definir a restrição, cria-se um índice único para a coluna ou grupo de colunas
+
+* CHAVE ESTRANGEIRA =>
+	-coluna (ou grupo de colunas) em uma tabela que identificam unicamente uma linha em outra tabela
+	-é definida em uma tabela em que ela é apenas uma referência e não contém todos os dados ali
+	-é a chave primária de outra tabela
+	-a tabela que contém a chave estrangeira é chamada de tabela referenciadoura ou tabela filha
+	-a tabela que contém a chave estrangeira referenciada é chamada de tabela referenciada ou tabela pai
+	-uma tabela pode ter mais de uma chave estrangeira dependendo do seu relacionamento com as outras tabelas
+	-no SQL Server, uma chave estrangeira é definida através de um 'Foreign Key Constraint' (restrição de chave estrangeira)
+	-uma restrição de chave estrangeira indica que os valores em uma coluna (ou grupo de colunas) na tabela filho correspondem aos valores na tabela pai
+	-é possível assumir que uma chave estrangeira mantém a integridade referencial
+*/
+
+--CREATE TABLE
+CREATE TABLE nomeTabela(
+	coluna1 tipo restricaoDaColuna (se houver),
+	coluna2 tipo restricaoDaColuna,
+	coluna3 tipo restricaoDaColuna,
+	...
+);
+
+	--Principais restrições que podem ser aplicadas =>
+	/*
+	* NOT NULL => não permite nulos
+	* UNIQUE => força que todos os valores em uma coluna sejam diferentes
+	* PRIMARY KEY => junção de NOT NULL e UNIQUE; identifica unicamente uma linha em uma tabela
+	* FOREIGN KEY => identifica unicamente uma linha em outra tabela
+	* CHECK => força uma condição específica em uma coluna
+	* DEFAULT => força um valor padrão quando nenhum valor é passado
+	*/
+
+CREATE TABLE Canal(
+	CanalId INT PRIMARY KEY,
+	NOME VARCHAR(150) NOT NULL,
+	ContagemInscritos INT DEFAULT 0,
+	DataCriacao DATETIME NOT NULL
+);
+
+SELECT * FROM Canal;
+
+CREATE TABLE Video(
+	VideoId INT PRIMARY KEY,
+	Nome VARCHAR(150) NOT NULL,
+	Visualizacoes INT DEFAULT 0,
+	LIKES INT DEFAULT 0,
+	Dislikes INT DEFAULT 0,
+	Duracao INT NOT NULL,
+	CanalId INT FOREIGN KEY REFERENCES Canal(CanalId)
+);
+
+SELECT * FROM Video;
+
+--INSERT INTO
+INSERT INTO tabela(coluna1, coluna2, ...) VALUES (valor1, valor2, ...);
+
+INSERT INTO tabelaA (coluna1) SELECT coluna2 FROM tabelaB;
+
+INSERT INTO Canal (CanalId, NOME, DataCriacao) VALUES (1, 'MeuCanal', 14/08/2023);
+
+UPDATE Canal SET DataCriacao = CURRENT_TIMESTAMP;
